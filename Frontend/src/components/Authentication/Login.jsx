@@ -43,7 +43,7 @@ const Login = () => {
     e.preventDefault();
     try {
 
-      const response = await axios.post("https://192.168.253.36:3000/users/login", data, {
+      const response = await axios.post("https://inherent-alvira-student312-f97034bb.koyeb.app/users/login", data, {
         headers: {
           'Content-Type': 'application/json'
         }
