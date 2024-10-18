@@ -6,7 +6,6 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon -r dotenv/config --experimental-json-modules ./src/server.js",
-    "build": "babel src --out-dir dist",
     "start": "node -r dotenv/config --experimental-json-modules dist/server.js"
   },
   "author": "Anubhav Verma",
