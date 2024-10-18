@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "api for virtual hosting website",
   "main": "server.js",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
-    "dev": "nodemon -r dotenv/config --experimental-json-modules ./src/server.js"
+    "dev": "nodemon -r dotenv/config --experimental-json-modules ./src/server.js",
+    "build": "babel src --out-dir dist",
+    "start": "node -r dotenv/config --experimental-json-modules dist/server.js"
   },
   "author": "Anubhav Verma",
   "license": "ISC",
