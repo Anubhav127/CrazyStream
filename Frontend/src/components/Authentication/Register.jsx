@@ -39,7 +39,7 @@ const Register = () => {
       formData.append('avatar', image);
       console.log(formData);
       
-      const response = await axios.post('https://192.168.253.36:8000/users/register', formData, {
+      const response = await axios.post('https://virtualhosting.onrender.com/users/register', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
