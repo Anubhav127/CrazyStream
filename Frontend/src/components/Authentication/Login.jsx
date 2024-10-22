@@ -44,7 +44,7 @@ const Login = () => {
     e.preventDefault();
     try {
 
-      const response = await axios.post("https://192.168.253.36:8000/users/login", data, {
+      const response = await axios.post("https://virtualhosting.onrender.com/users/login", data, {
         headers: {
           'Content-Type': 'application/json'
         }
