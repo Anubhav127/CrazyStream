@@ -6,13 +6,17 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon -r dotenv/config --experimental-json-modules ./src/server.js",
-    "build": "npx babel src --out-dir dist",
     "babel": "npx babel",
-    "start": "node -r dotenv/config ./src/server.js"
+    "start": "node -r dotenv/config ./src/server.js",
+    "build": "babel src -d dist"
   },
+  
   "author": "Anubhav Verma",
   "license": "ISC",
   "dependencies": {
+    "@babel/cli": "^7.25.7",
+    "@babel/core": "^7.25.8",
+    "@babel/preset-env": "^7.25.8",
     "bcrypt": "^5.1.1",
     "cloudinary": "^2.5.1",
     "cookie-parser": "^1.4.7",
