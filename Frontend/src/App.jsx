@@ -6,14 +6,16 @@ function App() {
 
   const router = createBrowserRouter(
     createRoutesFromElements(
+      <>
       <Route path='/' element={<Layout />} >
         <Route path='' element={<Landing />} />
         <Route path='/about' element={<About />} />
         <Route path='/register' element={ <Register /> } />
         <Route path='/login' element={ <Login /> } />
         <Route path='/dashboard' element={ <Dashboard /> } />
-        <Route path='/stream/:streamId' element={ <StreamPage /> } />
       </Route>
+      <Route path='/stream/:streamId' element={ <StreamPage /> } />
+      </>
     )
   )
 

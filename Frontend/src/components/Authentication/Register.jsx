@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import logo from '../../assets/stream.png'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const Register = () => {
+
+  const navigate = useNavigate();
 
   const [data, setData] = useState({
     username: "",
@@ -36,13 +39,16 @@ const Register = () => {
       formData.append('avatar', image);
       console.log(formData);
       
-      const response = await axios.post('https://inherent-alvira-student312-f97034bb.koyeb.app/users/register', formData, {
+      const response = await axios.post('https://192.168.253.36:8000/users/register', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       });
       console.log(response);
-      
+      if(response.status === 201){
+        alert('User registered successfully');
+      }
+      navigate('/login');
     } catch (error) {
       console.log(error);
     } finally {
@@ -56,24 +62,83 @@ const Register = () => {
     }
 
   return (
-    <div className='flex flex-col items-center '>
-      <div className='flex w-1/2 bg-slate-600 justify-center p-12 py-3'>
-        <div><img src={logo} alt="logo" className='w-28'/></div>
-        <h1 className='text-4xl pt-7 px-14 text-white'>Crazy Stream</h1>
-      </div>
-      <div className='bg-gray-200 w-1/2 '>
-        <form onSubmit={handleSubmit} className='flex flex-col items-center p-5'>
-          <div className='w-1/2'><label htmlFor="username">Username:</label></div>
-          <input type='text' name='username' placeholder='Enter Username' value={data.username} onChange={inputChange} className='m-2 w-1/2 h-8 outline outline-2 outline-gray-500 rounded-md'/>
-          <input type="text" name="fullName" placeholder='Enter Full Name' value={data.fullName} onChange={inputChange} className='m-2 w-1/2 h-8 outline outline-2 outline-gray-500 rounded-md' />
-          <input type='email' name='email' placeholder='E-Mail' value={data.email} onChange={inputChange} className='m-2 w-1/2 h-8 outline outline-2 outline-gray-500 rounded-md'/>
-          <input type='password' name='password' placeholder='Password' value={data.password} onChange={inputChange} className='m-2 w-1/2 h-8 outline outline-2 outline-gray-500 rounded-md'/>
-          <input type='file' name='avatar' onChange={inputChangeImage}/>
-          <input type='submit' className='bg-sky-600 m-4 p-2 rounded-md outline outline-cyan-500 hover:text-lg hover:bg-orange-400 text-white ' />
-        </form>
+    <div className='flex flex-col items-center min-h-screen bg-gray-100'>
+  <div className='flex w-full max-w-md bg-slate-600 justify-center p-6'>
+    <div>
+      <img src={logo} alt="logo" className='w-28' />
+    </div>
+    <h1 className='text-3xl pt-7 px-4 text-white font-bold'>Crazy Stream</h1>
+  </div>
+  
+  <div className='bg-white w-full max-w-md shadow-lg rounded-lg mt-4'>
+    <form onSubmit={handleSubmit} className='flex flex-col items-center p-6'>
+      <div className='w-full mb-2'>
+        <label htmlFor="username" className='block text-left'>Username:</label>
+        <input
+          type='text'
+          name='username'
+          placeholder='Enter Username'
+          value={data.username}
+          onChange={inputChange}
+          className='mt-1 w-full h-10 px-3 border-2 border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-cyan-300'
+        />
       </div>
       
-    </div>
+      <div className='w-full mb-2'>
+        <label htmlFor="fullName" className='block text-left'>Full Name:</label>
+        <input
+          type="text"
+          name="fullName"
+          placeholder='Enter Full Name'
+          value={data.fullName}
+          onChange={inputChange}
+          className='mt-1 w-full h-10 px-3 border-2 border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-cyan-300'
+        />
+      </div>
+      
+      <div className='w-full mb-2'>
+        <label htmlFor="email" className='block text-left'>E-Mail:</label>
+        <input
+          type='email'
+          name='email'
+          placeholder='E-Mail'
+          value={data.email}
+          onChange={inputChange}
+          className='mt-1 w-full h-10 px-3 border-2 border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-cyan-300'
+        />
+      </div>
+      
+      <div className='w-full mb-2'>
+        <label htmlFor="password" className='block text-left'>Password:</label>
+        <input
+          type='password'
+          name='password'
+          placeholder='Password'
+          value={data.password}
+          onChange={inputChange}
+          className='mt-1 w-full h-10 px-3 border-2 border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-cyan-300'
+        />
+      </div>
+      
+      <div className='w-full mb-4'>
+        <label htmlFor="avatar" className='block text-left'>Profile Pic:</label>
+        <input
+          type='file'
+          name='avatar'
+          onChange={inputChangeImage}
+          className='mt-1 border border-gray-300 rounded-md w-full p-2'
+        />
+      </div>
+      
+      <input
+        type='submit'
+        value='Register'
+        className='bg-sky-600 m-4 w-full py-2 rounded-md text-white font-semibold transition duration-200 hover:bg-orange-400'
+      />
+    </form>
+  </div>
+</div>
+
   )
 }
 

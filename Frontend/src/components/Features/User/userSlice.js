@@ -28,13 +28,7 @@ export const userSlice = createSlice({
         },
 
         clearUserData: (state) => {
-            state.user.username = "";
-            state.user.fullName = "";
-            state.user.email = "";
-            state.user.avatar = "";
-            state.user.accessToken = "";
-            state.user.refreshToken = "";
-            state.user.isAuthenticated = false;
+            state.user = {};
         },
     }
 })

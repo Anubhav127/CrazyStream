@@ -1,19 +1,28 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userReducer from '../Features/User/userSlice.js';
+import streamReducer from '../Features/Stream/streamSlice.js'
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-const persistConfig = {
-    key: "root",
+const userPersistConfig = {
+    key: "user",
     storage,
     whitelist: ["user"]
 }
 
-const persistedReducer = persistReducer(persistConfig, userReducer);
+const streamPersistConfig = {
+    key: "stream",
+    storage,
+}
+
+const streamPersistedReducer = persistReducer(streamPersistConfig, streamReducer);
+const userPersistedReducer = persistReducer(userPersistConfig, userReducer);
+
 
 export const store = configureStore({
     reducer: {
-        user: persistedReducer
+        user: userPersistedReducer,
+        stream: streamPersistedReducer,
     },
     middleware: (getDefaultMiddleware) => 
         getDefaultMiddleware({
