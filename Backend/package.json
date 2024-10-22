@@ -6,9 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon -r dotenv/config --experimental-json-modules ./src/server.js",
-    "babel": "npx babel",
-    "start": "node -r dotenv/config ./src/server.js",
-    "build": "babel src -d dist"
+    "build": "echo 'nothing to build'",
+    "start": "node ./src/server.js"
   },
   
   "author": "Anubhav Verma",

@@ -9,6 +9,7 @@ const userPersistConfig = {
     storage,
     whitelist: ["user"]
 }
+console.log();
 
 const streamPersistConfig = {
     key: "stream",

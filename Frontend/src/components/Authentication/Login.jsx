@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setUserData } from '../Features/User/userSlice';
-import { persistor } from '../App/store';
+import { persistor } from '../App/store.js';
 
 const Login = () => {
   const navigate = useNavigate();
