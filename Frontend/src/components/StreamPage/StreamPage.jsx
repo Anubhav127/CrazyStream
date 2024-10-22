@@ -77,11 +77,11 @@ const StreamPage = () => {
       {/* Remote User Videos */}
       {remoteUsers.map((user) => (
         <div
-          className="w-16 h-9 rounded-lg overflow-hidden bg-gray-800 shadow-md"
+          className="aspect-video rounded-lg overflow-hidden bg-gray-800 shadow-md"
           key={user.uid}
         >
           <RemoteUser user={user} >
-            <span className="absolute bottom-2 left-2 text-sm font-bold">{user.uid.slice(4)}</span>
+            <span className="absolute top-0 p-2 text-sm font-bold">{user.uid.slice(4)}</span>
           </RemoteUser>
         </div>
       ))}
