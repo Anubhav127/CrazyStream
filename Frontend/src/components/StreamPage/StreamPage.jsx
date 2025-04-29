@@ -57,61 +57,100 @@ const StreamPage = () => {
   
 
   return (
-    <div className="flex flex-col lg:flex-row min-h-screen bg-gray-900 text-white">
-    {/* Video Section */}
-    <div className="flex-1 p-4 lg:w-2/3 lg:pr-6 p-4 y-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {/* Local User Video */}
-        <div className="aspect-video rounded-lg overflow-hidden bg-gray-800 shadow-md">
-          <LocalUser
-            audioTrack={localMicrophoneTrack}
-            cameraOn={cameraOn}
-            micOn={micOn}
-            videoTrack={localCameraTrack}
-            key={streamId}
-          >
-            <span className="absolute top-0 p-2 text-sm font-bold">You</span>
-          </LocalUser>
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-white relative">
+      {/* Main Content Area */}
+      <div className="container mx-auto px-4 py-6">
+        {/* Video Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
+          {/* Local User Video */}
+          <div className="relative aspect-video rounded-2xl overflow-hidden bg-gray-800 shadow-xl ring-1 ring-gray-700 transform transition-transform duration-300 hover:scale-[1.02]">
+            <LocalUser
+              audioTrack={localMicrophoneTrack}
+              cameraOn={cameraOn}
+              micOn={micOn}
+              videoTrack={localCameraTrack}
+              key={streamId}
+            >
+              <div className="absolute top-0 left-0 right-0 p-4 bg-gradient-to-b from-black/50 to-transparent">
+                <div className="flex items-center space-x-2">
+                  <span className="text-sm font-medium bg-blue-500/20 px-3 py-1 rounded-full">You</span>
+                  {!micOn && <FaMicrophoneSlash className="text-red-500" />}
+                  {!cameraOn && <IoVideocamOff className="text-red-500" />}
+                </div>
+              </div>
+            </LocalUser>
+          </div>
+          
+          {/* Remote User Videos */}
+          {remoteUsers.map((user) => (
+            <div
+              className="relative aspect-video rounded-2xl overflow-hidden bg-gray-800 shadow-xl ring-1 ring-gray-700 transform transition-transform duration-300 hover:scale-[1.02]"
+              key={user.uid}
+            >
+              <RemoteUser user={user}>
+                <div className="absolute top-0 left-0 right-0 p-4 bg-gradient-to-b from-black/50 to-transparent">
+                  <span className="text-sm font-medium bg-purple-500/20 px-3 py-1 rounded-full">
+                    {user.uid.slice(4)}
+                  </span>
+                </div>
+              </RemoteUser>
+            </div>
+          ))}
         </div>
-        
-      {/* Remote User Videos */}
-      {remoteUsers.map((user) => (
-        <div
-          className="aspect-video rounded-lg overflow-hidden bg-gray-800 shadow-md"
-          key={user.uid}
-        >
-          <RemoteUser user={user} >
-            <span className="absolute top-0 p-2 text-sm font-bold">{user.uid.slice(4)}</span>
-          </RemoteUser>
-        </div>
-      ))}
-    </div>
-  </div>
+      </div>
 
-  {/* Controls Section */}
-<div className=" lg:fixed bottom-0 left-0 lg:w-full lg:pr-6 p-4 bg-gray-800 flex justify-between space-x-4">
-<div className="flex space-x-4">
-  <button
-    className={`btn ${micOn ? "bg-green-500" : "bg-red-500"} p-2 rounded-lg flex items-center`}
-    onClick={() => setMic((a) => !a)}
-  >
-    {micOn ? <FaMicrophone /> : <FaMicrophoneSlash />}
-  </button>
-  <button
-    className={`btn ${cameraOn ? "bg-green-500" : "bg-red-500"} p-2 rounded-lg flex items-center`}
-    onClick={() => setCamera((a) => !a)}
-  >
-    {cameraOn ? <IoVideocam /> : <IoVideocamOff />}
-  </button>
-</div>
-<button
-  className={`btn ${calling ? "bg-red-500" : "bg-blue-500"} p-2 rounded-lg flex items-center`}
-  onClick={toggleCalling}
->
-  <MdCallEnd />
-</button>
-</div>
-</div>
+      {/* Controls Bar */}
+      <div className="fixed bottom-0 left-0 right-0 bg-gray-800/95 backdrop-blur-sm border-t border-gray-700">
+        <div className="container mx-auto px-4 py-6">
+          <div className="flex items-center justify-center space-x-8">
+            {/* Mic Control */}
+            <button
+              className={`group relative p-4 rounded-full transition-all duration-300 ${
+                micOn ? 'bg-green-500/10 hover:bg-green-500/20' : 'bg-red-500/10 hover:bg-red-500/20'
+              }`}
+              onClick={() => setMic((a) => !a)}
+            >
+              {micOn ? (
+                <FaMicrophone className="w-6 h-6 text-green-500" />
+              ) : (
+                <FaMicrophoneSlash className="w-6 h-6 text-red-500" />
+              )}
+              <span className="absolute -top-8 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-gray-900 text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                {micOn ? 'Mute' : 'Unmute'}
+              </span>
+            </button>
+
+            {/* Camera Control */}
+            <button
+              className={`group relative p-4 rounded-full transition-all duration-300 ${
+                cameraOn ? 'bg-green-500/10 hover:bg-green-500/20' : 'bg-red-500/10 hover:bg-red-500/20'
+              }`}
+              onClick={() => setCamera((a) => !a)}
+            >
+              {cameraOn ? (
+                <IoVideocam className="w-6 h-6 text-green-500" />
+              ) : (
+                <IoVideocamOff className="w-6 h-6 text-red-500" />
+              )}
+              <span className="absolute -top-8 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-gray-900 text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                {cameraOn ? 'Stop Video' : 'Start Video'}
+              </span>
+            </button>
+
+            {/* End Call */}
+            <button
+              className="group relative p-4 rounded-full bg-red-500/10 hover:bg-red-500/20 transition-all duration-300"
+              onClick={toggleCalling}
+            >
+              <MdCallEnd className="w-6 h-6 text-red-500" />
+              <span className="absolute -top-8 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-gray-900 text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                End Call
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
   );
 }
