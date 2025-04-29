@@ -15,6 +15,7 @@
     "agora-rtc-react": "^2.3.0",
     "agora-rtc-sdk-ng": "^4.22.1",
     "axios": "^1.7.7",
+    "framer-motion": "^12.9.2",
     "ion-sdk-js": "^1.8.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
